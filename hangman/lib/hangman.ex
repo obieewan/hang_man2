@@ -10,9 +10,10 @@ defmodule Hangman do #API module
   @spec new_game() :: game
   defdelegate new_game, to: Game #clear shows that the actual implementation of new game is in the Game module
   #makes it explicit that this is referrring that this is just an API
+  #
+  
+  @spec make_move(game, String.t) :: { game, Type.tally }
+  defdelegate make_move(game, guess), to: Game
 
-  @spec make_move(game, String.t) :: {game, Type.tally} #expected to receive guess as string
-  def make_move(game, guess) do
-  end
 
 end
