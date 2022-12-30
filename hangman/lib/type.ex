@@ -6,7 +6,9 @@ defmodule Hangman.Type do
     game_state:  state,
     letters: list(String.t),
     used: list(String.t),
-           }
+    }
+
+
 end
 
 
