@@ -41,9 +41,33 @@ defmodule Hangman.Impl.Game do
   #this function is called only if the game_state is won or lost
   #returns with the existing state
   def make_move(game = %{game_state: state}, _guess) when state in [:won, :lost] do
-    {game, tally(game)}
+    game
+    |> return_with_tally
+    #piped to a function returns to existing state if :won or :lost
   end
 
+  #if not :won or :lost it will accept a guess letter  
+  def make_move(game, guess) do
+    accept_guess(game, guess, MapSet.member?(game.used, guess) 
+    #created a function that accepts guess
+    #returns true or false if the guess already use
+    |> return_with_tally
+  end
+  ############################## 
+  
+  defp accept_guess(game, _guess, _already_used = true) do
+    #generate a new map based on the contents of game with game state set to already used
+    # returns an identical struct except the game_state
+    %{ game | game_state: :already_used}
+  end
+
+  #treat it as false for used letter
+  #update the letters in used map using MapSet.put
+  defp accept_guess(game, guess, _already_used) do
+    %{ game | used: MapSet.put(game.used, guess) }
+  end
+
+  ############################## 
 
   #tally expecting game as map
   #this is a tally function
@@ -54,6 +78,10 @@ defmodule Hangman.Impl.Game do
     letters: [],
     used: game.used |> MapSet.to_list |> Enum.sort 
     }   
+  end
+
+  defp return_with_tally(game) do
+    {game, tally(game)}
   end
 
 
