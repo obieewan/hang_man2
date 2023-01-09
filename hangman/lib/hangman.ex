@@ -15,5 +15,10 @@ defmodule Hangman do #API module
   @spec make_move(game, String.t) :: { game, Type.tally }
   defdelegate make_move(game, guess), to: Game
 
+  #added API function for tally
+  #this gonna call the tally function from the impl
+  @spec tally(game) :: tally
+  defdelegate tally(game), do: Game
+
 
 end
