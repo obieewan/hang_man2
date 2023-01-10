@@ -30,6 +30,7 @@ defmodule Hangman.Impl.Game do
   #the random word is inserted inside the struct
   @spec new_game(String.t) :: t
   def new_game(word) do
+    IO.inspect word, label: "obie"
     %__MODULE__{
     letters: word |> String.codepoints 
     }
@@ -76,6 +77,7 @@ defmodule Hangman.Impl.Game do
   defp score_guess(game, _good_guess = true) do
     #guessed all letters? -> :won | :good_guess
     # maybe_won function helper which tells if won or :good_guess
+    IO.inspect game.letters
     new_state = maybe_won(MapSet.subset?(MapSet.new(game.letters), game.used))
     #new_state updates the game_state if :won or :good_guess
     %{ game | game_state: new_state}
@@ -97,7 +99,7 @@ defmodule Hangman.Impl.Game do
   #tally expecting game as map
   #this is a tally function
   #records every move
-  defp tally(game) do
+  def tally(game) do
     %{
     turns_left: game.turns_left,
     game_state:  game.game_state,
@@ -112,8 +114,12 @@ defmodule Hangman.Impl.Game do
 
   defp reveal_guessed_letters(game) do 
     game.letters
-    |> Enum.map(fn letter -> MapSet.member?(game.used, letter) |> maybe_reveal(letter) end)
-
+    |> IO.inspect
+    |> Enum.map(fn letter ->
+      IO.inspect letter, label: "letter"
+      IO.inspect game.used, label: "foobar"
+      MapSet.member?(game.used, letter) |> maybe_reveal(letter)
+    end)
   end
 
   #helper functions to show if the game is :won or a :good_guess
