@@ -98,7 +98,7 @@ defmodule HangmanImplGameTest do
     ["c", :bad_guess , 3, ["_", "e", "l", "l", "o"], ["a", "b", "c", "e", "l", "o", "x"]],
     ["d", :bad_guess , 2, ["_", "e", "l", "l", "o"], ["a", "b", "c", "d", "e", "l", "o", "x"]],
     ["f", :bad_guess , 1, ["_", "e", "l", "l", "o"], ["a", "b", "c", "d", "e", "f", "l", "o", "x"]],
-    ["g", :lost , 0, ["_", "e", "l", "l", "o"], ["a", "b", "c", "d", "e", "f", "g", "l", "o", "x"]],
+    ["g", :lost , 0, ["h", "e", "l", "l", "o"], ["a", "b", "c", "d", "e", "f", "g", "l", "o", "x"]],
   ]
   |> test_sequence_of_move()
   end

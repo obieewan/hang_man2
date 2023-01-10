@@ -21,13 +21,13 @@ defmodule TextClient.Impl.Player do
   # interact take a state
   @spec interact(state) :: :ok
   #don't care with tally as a whole but care with the fields in it
-  def interact({_game, _tally = %{ game_state: :won}}) do
-    IO.puts("Congratulations. You won!")
+  def interact({_game, tally = %{ game_state: :won}}) do
+    IO.puts("#{tally.letters} Congratulations. You won!")
   end
 
   #tally is here because it is use to show the content in letters
   def interact({_game, tally = %{ game_state: :lost }}) do
-    IO.puts("Sorry, you lost... the word was #{tally.letters |> Enum.join}")
+    IO.puts("Sorry, you lost... the word was #{tally.letters |> Enum.join |> String.upcase}")
   end
 
   def interact({game, tally}) do

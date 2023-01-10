@@ -1,11 +1,18 @@
 defmodule Dictionary do
 
-   @word_list "assets/words.txt" #created an assets directory in our project and download words.txt into it
-    |> File.read!()
-    |> String.split(~r/\n/, trim: true)
+  alias Dictionary.Impl.Wordlist
 
-  def random_word do 
-    @word_list
-    |> Enum.random
-  end
+  # opaque type to that the public will not know how dictionary
+  # represented
+  @opaque t :: WordList
+
+  # start will start with the word_list function
+  @spec start() :: t
+  defdelegate start, to: Wordlist, as: :word_list
+
+  @spec random_word(t) :: String.t
+  defdelegate random_word(word_list), to: Wordlist
+  
+
+
 end
