@@ -5,6 +5,7 @@ defmodule Hangman do #API module
 
   #opaque defines a type not usable outside module
   @opaque game :: Game.t #any is base of all types any single type compatible with any
+  @type tally :: Type.tally
   
 
   @spec new_game() :: game
@@ -17,8 +18,8 @@ defmodule Hangman do #API module
 
   #added API function for tally
   #this gonna call the tally function from the impl
-  @spec tally(game) :: tally
-  defdelegate tally(game), do: Game
+  @spec tally(game) :: Type.tally()
+  defdelegate tally(game), to: Game
 
 
 end
