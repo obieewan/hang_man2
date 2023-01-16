@@ -4,11 +4,14 @@ defmodule Dictionary.Runtime.Server do
   @type t :: pid()
   alias Dictionary.Impl.Wordlist
 
+
+  #pid is passed in as current module
   def start_link() do
-    Agent.start_link(&Wordlist.word_list/0)
+    Agent.start_link(&Wordlist.word_list/0, name: :wilma)
   end
 
-  def random_word(_word = pid) do
-    Agent.get(pid, &Wordlist.random_word/1)
+  #pid removed because it is now started with the application starter
+  def random_word() do
+    Agent.get(:wilma, &Wordlist.random_word/1)
   end
 end
