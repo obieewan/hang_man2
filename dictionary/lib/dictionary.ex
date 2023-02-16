@@ -1,17 +1,14 @@
 defmodule Dictionary do
 
-  alias Dictionary.Impl.Wordlist
+  #not gonna delegate to the implementation anymore but to runtime
+  # 
+  alias Dictionary.Runtime.Server
 
-  # opaque type to that the public will not know how dictionary
-  # represented
-  @opaque t :: WordList
-
-  # start will start with the word_list function
-  @spec start() :: t
-  defdelegate start, to: Wordlist, as: :word_list
-
-  @spec random_word(t) :: String.t
-  defdelegate random_word(word_list), to: Wordlist
+  #got rid of start link function because this is handled now by the runtime
+  #
+  #random_word no longer takes server parameters now it returns a string
+  @spec random_word() :: String.t
+  defdelegate random_word(), to: Server
   
 
 
